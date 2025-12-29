@@ -52,4 +52,15 @@ VALUES
 ('Microwave Oven', 10, 8999.00, 5),
 ('Electric Kettle', 20, 1499.00, 5);
 
+SELECT p.product_id,
+       p.product_name,
+       c.category_name AS category_name,
+       p.product_quantity,
+       p.price
+FROM product p
+JOIN category c
+  ON c.category_id = p.category_id
+ORDER BY p.product_id ASC
+LIMIT 5 OFFSET 0;
+
 

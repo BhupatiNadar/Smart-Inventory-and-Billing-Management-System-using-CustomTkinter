@@ -127,6 +127,8 @@ class SmartInventoryManageProducts:
             width=120,
             command=self.next_page
         ).pack(side="left", padx=10)
+        
+        
 
     def load_products(self, page):
 
@@ -144,13 +146,15 @@ class SmartInventoryManageProducts:
             cursor = conn.cursor()
 
             query = """
-                SELECT product_id,
-                       product_name,
-                       category_id,
-                       product_quantity,
-                       price
-                FROM product
-                ORDER BY product_id ASC
+                SELECT p.product_id,
+                    p.product_name,
+                    c.category_name AS category_name,
+                    p.product_quantity,
+                    p.price
+                FROM product p
+                JOIN category c
+                ON c.category_id = p.category_id
+                ORDER BY p.product_id ASC
                 LIMIT %s OFFSET %s
             """
             cursor.execute(query, (self.page_size, offset))
