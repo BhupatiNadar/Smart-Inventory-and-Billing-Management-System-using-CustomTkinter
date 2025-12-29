@@ -1,5 +1,6 @@
 import customtkinter
 from PIL import Image
+import bcrypt
 
 customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("blue")
@@ -179,7 +180,8 @@ class SmartInventoryApp:
             fg_color="Green",
             height=40,
             width=150,
-            font=("Segoe UI",20,"bold")
+            font=("Segoe UI",20,"bold"),
+            command=lambda:self.CheckUserlogin()
         )
         self.Login_Button.pack(pady=(20,0))
         
@@ -203,6 +205,13 @@ class SmartInventoryApp:
         
         self.Forgot_Button.pack()
         
+    def CheckUserlogin(self):
+        Username=self.Username_Entry.get()
+        passward=self.Password_Entry.get()
+        
+        passward_bytes=passward.encode("utf-8")
+        hashed_passward=bcrypt.hashpw(passward_bytes,bcrypt.gensalt())
+        print(hashed_passward)
         
 
 if __name__=="__main__":
