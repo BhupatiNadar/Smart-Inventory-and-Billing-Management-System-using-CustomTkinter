@@ -168,7 +168,8 @@ class SmartInventoryApp:
             placeholder_text="Password",
             height=50,
             width=300,
-            font=("Segoe UI",20,"bold")
+            font=("Segoe UI",20,"bold"),
+            show="*"
         )
         
         self.Password_Entry.pack(padx=10,pady=(0,10))
@@ -176,7 +177,8 @@ class SmartInventoryApp:
         self.Password_Entry_error=customtkinter.CTkLabel(
             self.UserLogin_frame,
             text="",
-            text_color="red"
+            text_color="red",
+            font=("Segoe UI",15,"bold")
         )
         self.Password_Entry_error.pack()
         
@@ -243,12 +245,12 @@ class SmartInventoryApp:
         Check_passward=bcrypt.checkpw(password.encode("utf-8"), user[1].encode("utf-8"))
         
         if Check_passward:
-            from gui.dashboard import SmartInventoryDashboard
+            from gui.MainConditionalGUI import SmartInventoryMainConditionalGUI
 
             for widget in self.root.winfo_children():
                 widget.destroy()
             
-            SmartInventoryDashboard(self.root)
+            SmartInventoryMainConditionalGUI(self.root)
         else:
             self.Password_Entry_error.configure(text="Wrong passward!")
 
