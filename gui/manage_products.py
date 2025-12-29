@@ -164,7 +164,6 @@ class SmartInventoryManageProducts:
         ).pack(side="left",padx=10,pady=10)
 
     def load_products(self, page):
-
         self.current_page = page
 
         
