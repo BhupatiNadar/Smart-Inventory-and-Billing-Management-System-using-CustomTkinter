@@ -12,9 +12,8 @@ class SmartInventoryMainConditionalGUI:
         self.root.after(10,lambda: self.root.state("zoomed"))
         self.header_widget()
         self.side_widget()
-        from gui.dashboard import SmartInventoryDashboard
-        SmartInventoryDashboard(self.root)
-        
+        self.create_content_frame()
+        self.show_dashboard()
         
     def header_widget(self):
         
@@ -79,24 +78,74 @@ class SmartInventoryMainConditionalGUI:
         self.side_widget_frame.pack(side="left",fill="y")
         self.side_widget_frame.pack_propagate(False)
         
-        buttons=["Dashboard","Manage Products","sales & Billing","Stock Levels","Suppliers","Reports","Logout"]
-        icons=["dashboard","manage_product","selling_product","stocklevel","supplier_icon","report_icon","logout"]
-        count=0
-        while(count<len(buttons)):
+        buttons = [
+        ("Dashboard", self.show_dashboard, "dashboard"),
+        ("Manage Products", self.show_products, "manage_product"),
+        ("Sales & Billing", self.show_sales, "selling_product"),
+        ("Stock Levels", self.show_stock, "stocklevel"),
+        ("Suppliers", self.show_suppliers, "supplier_icon"),
+        ("Reports", self.show_reports, "report_icon"),
+        ("Logout", self.logout, "logout"),
+            ]
+        
+        self.side_buttons = [] 
+        
+        for text,command,icon in buttons:
             icon=customtkinter.CTkImage(
-                light_image=Image.open(f"./assets/icons/{icons[count]}.png"),
+                light_image=Image.open(f"./assets/icons/{icon}.png"),
                 size=(30,30)
             )
             
             self.btn=customtkinter.CTkButton(
                 self.side_widget_frame,
-                text=buttons[count],
+                text=text,
                 image=icon,
                 width=200,
                 height=60,
-                font=("Segoe UI",15,"bold")
+                font=("Segoe UI",15,"bold"),
+                command=command,
+                anchor="w",
+                compound="left"
             )
+            self.side_buttons.append(self.btn)
             self.btn.pack(pady=8)
-            count+=1
             
+    def create_content_frame(self):
+        self.content_frame = customtkinter.CTkFrame(
+        self.root,
+        fg_color="#f5f6fa"
+        )
+        self.content_frame.pack(side="left", fill="both", expand=True)
+ 
+    def clear_content(self):
+          for widget in self.content_frame.winfo_children():      
+            widget.destroy()
             
+    def show_dashboard(self):
+        self.clear_content()
+        from gui.dashboard import SmartInventoryDashboard
+        SmartInventoryDashboard(self.content_frame)
+        
+    def show_products(self):
+        self.clear_content()
+        pass
+    
+    def show_sales(self):
+        self.clear_content()
+        pass
+    
+    def show_stock(self):
+        self.clear_content()
+        pass
+    
+    def show_suppliers(self):
+        self.clear_content()
+        pass
+
+    def show_reports(self):
+        self.clear_content()
+        pass
+    
+    def logout(self):
+        self.clear_content()
+        pass

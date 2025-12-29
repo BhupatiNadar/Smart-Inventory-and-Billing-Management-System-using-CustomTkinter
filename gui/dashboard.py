@@ -6,11 +6,7 @@ customtkinter.set_default_color_theme("blue")
 
 class SmartInventoryDashboard:
     def __init__(self,root):
-        
         self.root=root
-        self.root.title("Smart Inventry management System")
-        self.root.after(10,lambda: self.root.state("zoomed"))
-        
         self.Main_widget()
                 
     def Main_widget(self):
@@ -96,7 +92,7 @@ class SmartInventoryDashboard:
                 )
             label.pack()
 
-        self.product_frames.append(frame)
+            self.product_frames.append(frame)
         
         self.sales_performance_and_stockStatus_frame=customtkinter.CTkFrame(
             self.Main_widget_complete_frame,
