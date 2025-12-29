@@ -128,7 +128,40 @@ class SmartInventoryManageProducts:
             command=self.next_page
         ).pack(side="left", padx=10)
         
+        self.Tail_frame=ctk.CTkFrame(
+            self.complete_frame,
+            bg_color="#ffffff",
+            fg_color="#ffffff"
+        )
+        self.Tail_frame.pack(fill="x",padx=(10,10))
         
+        Edit_icon=ctk.CTkImage(
+            light_image=Image.open("./assets/icons/Edit_icon.png"),
+            size=(30,30)
+        )
+        
+        ctk.CTkButton(
+            self.Tail_frame,
+            image=Edit_icon,
+            text="Edit Product",
+            text_color="#000000",
+            bg_color="#daf5ff",
+            fg_color="#daf5ff",
+        ).pack(side="left",padx=10,pady=10)
+        
+        Delete_product_icon=ctk.CTkImage(
+            light_image=Image.open("./assets/icons/Delete_product_icon.png"),
+            size=(30,30)
+        )
+        
+        ctk.CTkButton(
+            self.Tail_frame,
+            image=Delete_product_icon,
+            text="Delete Product",
+            text_color="#000000",
+            bg_color="#daf5ff",
+            fg_color="#daf5ff",
+        ).pack(side="left",padx=10,pady=10)
 
     def load_products(self, page):
 
