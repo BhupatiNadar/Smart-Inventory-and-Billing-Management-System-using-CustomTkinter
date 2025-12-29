@@ -236,8 +236,7 @@ class SmartInventoryApp:
         finally:
             if conn:
                 cursor.close()
-                conn.close()
-        print(user)        
+                conn.close()        
         if not user:
             self.Password_Entry_error.configure(text="User not found")
             return

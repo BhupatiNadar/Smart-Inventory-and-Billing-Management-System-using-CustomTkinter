@@ -128,7 +128,8 @@ class SmartInventoryMainConditionalGUI:
         
     def show_products(self):
         self.clear_content()
-        pass
+        from gui.manage_products import SmartInventoryManageProducts
+        SmartInventoryManageProducts(self.content_frame)
     
     def show_sales(self):
         self.clear_content()

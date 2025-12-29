@@ -7,9 +7,9 @@ customtkinter.set_default_color_theme("blue")
 class SmartInventoryDashboard:
     def __init__(self,root):
         self.root=root
-        self.Main_widget()
+        self.dashboard()
                 
-    def Main_widget(self):
+    def dashboard(self):
         
         self.Main_widget_complete_frame=customtkinter.CTkFrame(
             self.root,
