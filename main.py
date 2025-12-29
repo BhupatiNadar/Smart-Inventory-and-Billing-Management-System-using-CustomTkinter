@@ -1,6 +1,5 @@
 import customtkinter
 from PIL import Image
-import bcrypt
 
 customtkinter.set_appearance_mode("light")
 customtkinter.set_default_color_theme("blue")
@@ -174,6 +173,13 @@ class SmartInventoryApp:
         
         self.Password_Entry.pack(padx=10,pady=(0,10))
         
+        self.Password_Entry_error=customtkinter.CTkLabel(
+            self.UserLogin_frame,
+            text="",
+            text_color="red"
+        )
+        self.Password_Entry_error.pack()
+        
         self.Login_Button=customtkinter.CTkButton(
             self.UserLogin_frame,
             text="Login",
@@ -206,14 +212,48 @@ class SmartInventoryApp:
         self.Forgot_Button.pack()
         
     def CheckUserlogin(self):
-        Username=self.Username_Entry.get()
-        passward=self.Password_Entry.get()
+        import bcrypt
+        import database.db_connection
         
-        passward_bytes=passward.encode("utf-8")
-        hashed_passward=bcrypt.hashpw(passward_bytes,bcrypt.gensalt())
-        print(hashed_passward)
+        Username=self.Username_Entry.get().strip()
+        password=self.Password_Entry.get().strip()
         
+        if not Username or not password:
+            self.Password_Entry_error.configure(text="Username and Passward requred")
+            return
+        
+        try:
+            conn=database.db_connection.create_connection()
+            cursor=conn.cursor()
+            query="""Select Username,passward_hash,role from UserLogin where Binary Username=%s"""
+            cursor.execute(query,(Username,))
+            user = cursor.fetchone()
+        except Exception as err:
+            self.Password_Entry_error.configure(text="Database error")
+            print(err)
+        finally:
+            if conn:
+                cursor.close()
+                conn.close()
+        print(user)        
+        if not user:
+            self.Password_Entry_error.configure(text="User not found")
+            return
+    
+        Check_passward=bcrypt.checkpw(password.encode("utf-8"), user[1].encode("utf-8"))
+        
+        if Check_passward:
+            from gui.dashboard import SmartInventoryDashboard
 
+            for widget in self.root.winfo_children():
+                widget.destroy()
+            
+            SmartInventoryDashboard(self.root)
+        else:
+            self.Password_Entry_error.configure(text="Wrong passward!")
+
+
+        
 if __name__=="__main__":
     root=customtkinter.CTk()
     app=SmartInventoryApp(root)

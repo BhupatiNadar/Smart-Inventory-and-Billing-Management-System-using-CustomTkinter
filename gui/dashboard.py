@@ -35,12 +35,12 @@ class SmartInventoryDashboard:
         self.header_text1.pack(side="left")
         
         python_icon=customtkinter.CTkImage(
-            light_image=Image.open("../assets/icons/Python_Icon.png"),
+            light_image=Image.open("./assets/icons/Python_Icon.png"),
             size=(60,60)
         )
         
         profile_icon=customtkinter.CTkImage(
-            light_image=Image.open("../assets/icons/profile_icon.png"),
+            light_image=Image.open("./assets/icons/profile_icon.png"),
             size=(70,70)
         )
         
@@ -83,7 +83,7 @@ class SmartInventoryDashboard:
         count=0
         while(count<len(buttons)):
             icon=customtkinter.CTkImage(
-                light_image=Image.open(f"../assets/icons/{icons[count]}.png"),
+                light_image=Image.open(f"./assets/icons/{icons[count]}.png"),
                 size=(30,30)
             )
             
@@ -151,7 +151,7 @@ class SmartInventoryDashboard:
             frame.pack_propagate(False)
             
             self.icon=customtkinter.CTkImage(
-                light_image=Image.open(f"../assets/icons/{icon}.png"),
+                light_image=Image.open(f"./assets/icons/{icon}.png"),
                 size=(40,40)
             )
 
@@ -197,7 +197,3 @@ class SmartInventoryDashboard:
 
         
     
-if __name__=="__main__":
-    root=customtkinter.CTk()
-    app=SmartInventoryDashboard(root)
-    root.mainloop()
