@@ -141,7 +141,8 @@ class SmartInventoryMainConditionalGUI:
     
     def show_suppliers(self):
         self.clear_content()
-        pass
+        from gui.supplier import SmartInventorySupplier
+        SmartInventorySupplier(self.content_frame)
 
     def show_reports(self):
         self.clear_content()
