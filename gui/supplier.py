@@ -171,19 +171,17 @@ class SmartInventorySupplier:
             cursor = conn.cursor()
 
             query = """
-                SELECT p.product_id,
-                    p.product_name,
-                    c.category_name AS category_name,
-                    p.product_quantity,
-                    p.price
-                FROM product p
-                JOIN category c
-                ON c.category_id = p.category_id
-                ORDER BY p.product_id ASC
+                select supplier_id,
+                supplier_code,
+                supplier_name,
+                supplier_contact_no,
+                supplier_email
+                from supplier
+                Order by supplier_id ASC
                 LIMIT %s OFFSET %s
             """
             cursor.execute(query, (self.page_size, offset))
-            products = cursor.fetchall()
+            suppliers = cursor.fetchall()
 
         except Exception as err:
             print("Database Error:", err)
@@ -193,8 +191,8 @@ class SmartInventorySupplier:
             cursor.close()
             conn.close()
 
-        for product in products:
-            self.create_row(product)
+        for supplier in suppliers:
+            self.create_row(supplier)
 
     def create_row(self, data):
 

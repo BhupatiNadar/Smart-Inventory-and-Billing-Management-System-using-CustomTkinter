@@ -63,4 +63,34 @@ JOIN category c
 ORDER BY p.product_id ASC
 LIMIT 5 OFFSET 0;
 
+CREATE TABLE supplier (
+    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_code VARCHAR(30) NOT NULL UNIQUE,
+    supplier_name VARCHAR(50) NOT NULL,
+    supplier_contact_no VARCHAR(15),
+    supplier_email VARCHAR(100) NOT NULL UNIQUE,
+    category_id INT NOT NULL,
+    CONSTRAINT fk_supplier_category
+        FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
 
+INSERT INTO supplier 
+(supplier_code, supplier_name, supplier_contact_no, supplier_email, category_id)
+VALUES
+('SUP-ELE-001', 'TechVision Electronics', '9876543210', 'contact@techvision.com', 1),
+('SUP-ELE-002', 'Digital World Pvt Ltd', '9123456789', 'sales@digitalworld.com', 1),
+
+('SUP-GRO-001', 'FreshMart Suppliers', '9988776655', 'info@freshmart.com', 2),
+('SUP-GRO-002', 'DailyNeeds Wholesale', '9090909090', 'support@dailyneeds.com', 2),
+
+('SUP-STA-001', 'OfficePro Stationers', '8887776665', 'office@officepro.com', 3),
+('SUP-STA-002', 'WriteWell Distributors', '7776665554', 'sales@writewell.com', 3),
+
+('SUP-CLO-001', 'FashionHub Traders', '9898989898', 'contact@fashionhub.com', 4),
+('SUP-CLO-002', 'UrbanWear Suppliers', '9765432109', 'info@urbanwear.com', 4),
+
+('SUP-HOM-001', 'HomeEase Appliances', '9654321098', 'service@homeease.com', 5),
+('SUP-HOM-002', 'ComfortLiving Pvt Ltd', '9543210987', 'support@comfortliving.com', 5);
