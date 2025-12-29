@@ -33,9 +33,13 @@ class SmartInventoryManageProducts:
         self.SearchBar_frame=customtkinter.CTkFrame(
             self.complete_frame,
             bg_color="#daf5ff",
-            fg_color="#daf5ff"
+            fg_color="#daf5ff",
+            border_width=2,
+            border_color="blue",
+            height=60
         )
-        self.SearchBar_frame.pack(fill="x",pady=20)
+        self.SearchBar_frame.pack(fill="x",pady=20,padx=(10,10))
+        self.SearchBar_frame.pack_propagate(False)
         
         search_icon=customtkinter.CTkImage(
             light_image=Image.open("./assets/icons/Search_icon.png"),
@@ -49,7 +53,7 @@ class SmartInventoryManageProducts:
             fg_color="#ffffff",
             bg_color="#ffffff"
         )
-        self.SearchBar_icon_Label.pack(side="left",padx=(20,20))
+        self.SearchBar_icon_Label.pack(side="left",padx=(30,30))
         
         self.SearchBar_Entry=customtkinter.CTkEntry(
             self.SearchBar_frame,
@@ -58,4 +62,25 @@ class SmartInventoryManageProducts:
             height=40,
             width=800
         )
-        self.SearchBar_Entry.pack(side="left")
+        self.SearchBar_Entry.pack(side="left",padx=(30,30))
+        
+        self.Product_add_button=customtkinter.CTkButton(
+            self.SearchBar_frame,
+            text="+ Add Product",
+            font=("Segoe UI",20,"bold"),
+            height=40,
+            width=100
+        )
+        self.Product_add_button.pack(side="left" ,padx=(30,30))
+        
+        self.Product_Table_frame=customtkinter.CTkFrame(
+            self.complete_frame,
+            bg_color="white",
+            fg_color="white",
+            height=400
+        )
+        self.Product_Table_frame.pack(fill="x",padx=(10,10))
+        
+        product_details=["Product Id","Product Name","Category","Quantity","Price"]
+        
+        
