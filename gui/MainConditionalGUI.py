@@ -150,5 +150,8 @@ class SmartInventoryMainConditionalGUI:
         pass
     
     def logout(self):
-        self.clear_content()
-        pass
+        for widget in self.root.winfo_children():
+                widget.destroy()
+    
+        from main import SmartInventoryApp
+        SmartInventoryApp(self.root)

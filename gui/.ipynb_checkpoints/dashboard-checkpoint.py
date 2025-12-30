@@ -98,46 +98,13 @@ class SmartInventoryDashboard:
             self.Main_widget_complete_frame,
             bg_color="#ffffff",
             fg_color="#ffffff",
-            height=400
+            height=300
         )
         self.sales_performance_and_stockStatus_frame.pack(fill="x",padx=(20,20))
         self.sales_performance_and_stockStatus_frame.pack_propagate(False)
         
-        customtkinter.CTkLabel(
-            self.sales_performance_and_stockStatus_frame,
-            text="Sales Performance",
-            font=("Segoe UI",30,"bold"),
-            text_color="#446dbb",
-        ).pack(fill="x")
+        self.sales_performance_and_stockStatus_text=["Sales Performance","Stock Status"]
         
-        self.report_frame=customtkinter.CTkFrame(
-            self.sales_performance_and_stockStatus_frame,
-            bg_color="#ffffff",
-            fg_color="#ffffff",
-        )
-        self.report_frame.pack(fill="both")
-        
-        SalesReport1_Png=customtkinter.CTkImage(
-            light_image=Image.open("./gui/Report/sales_report1.png"),
-            size=(400,350)
-        )
-        
-        customtkinter.CTkLabel(
-            self.report_frame,
-            text="",
-            image=SalesReport1_Png
-        ).pack(side="left",padx=(50,20))
-        
-        SalesReport2_Png=customtkinter.CTkImage(
-            light_image=Image.open("./gui/Report/sales_report2.png"),
-            size=(400,350)
-        )
-        
-        customtkinter.CTkLabel(
-            self.report_frame,
-            text="",
-            image=SalesReport2_Png
-        ).pack(side="right",padx=(50,20))
 
         
     
