@@ -94,3 +94,21 @@ VALUES
 
 ('SUP-HOM-001', 'HomeEase Appliances', '9654321098', 'service@homeease.com', 5),
 ('SUP-HOM-002', 'ComfortLiving Pvt Ltd', '9543210987', 'support@comfortliving.com', 5);
+
+CREATE TABLE sales (
+    invoice_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(50) NOT NULL,
+    invoice_date DATE NOT NULL DEFAULT (CURRENT_DATE),
+    total_amount DECIMAL(10,2) NOT NULL CHECK (total_amount >= 0),
+    status ENUM ('pending', 'paid', 'prepaid', 'shipped') NOT NULL DEFAULT 'pending'
+);
+
+INSERT INTO sales (customer_name, invoice_date, total_amount, status) VALUES
+('Ravi Kumar',    '2025-01-10', 12500.00, 'paid'),
+('Anita Sharma',  '2025-01-11',  3400.50, 'pending'),
+('Suresh Patel',  '2025-01-12',  8900.75, 'prepaid'),
+('Neha Verma',    '2025-01-13', 15750.00, 'shipped'),
+('Arjun Reddy',   '2025-01-14',  2200.00, 'paid'),
+('Priya Nair',    '2025-01-15',  4999.99, 'pending');
+
+

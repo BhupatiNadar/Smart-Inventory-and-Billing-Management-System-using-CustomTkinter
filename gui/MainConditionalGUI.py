@@ -133,7 +133,8 @@ class SmartInventoryMainConditionalGUI:
     
     def show_sales(self):
         self.clear_content()
-        pass
+        from gui.Sales_And_Billing import SmartInventorySalesAndBilling
+        SmartInventorySalesAndBilling(self.content_frame)
     
     def show_stock(self):
         self.clear_content()
