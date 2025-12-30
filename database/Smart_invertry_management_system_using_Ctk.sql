@@ -31,6 +31,13 @@ CREATE TABLE product (
         ON UPDATE CASCADE
 );
 
+ALTER TABLE product
+ADD COLUMN reorder_level INT NOT NULL DEFAULT 10
+CHECK (reorder_level >= 0);
+
+select * from product;
+
+
 INSERT INTO category (category_name) VALUES
 ('Electronics'),
 ('Groceries'),
@@ -112,3 +119,64 @@ INSERT INTO sales (customer_name, invoice_date, total_amount, status) VALUES
 ('Priya Nair',    '2025-01-15',  4999.99, 'pending');
 
 
+UPDATE product
+SET reorder_level = CASE product_name
+    WHEN 'Laptop' THEN 10
+    WHEN 'Smartphone' THEN 15
+    WHEN 'Rice Bag 10kg' THEN 30
+    WHEN 'Cooking Oil 1L' THEN 25
+    WHEN 'Notebook' THEN 50
+    WHEN 'Pen' THEN 100
+    WHEN 'T-Shirt' THEN 20
+    WHEN 'Jeans' THEN 15
+    WHEN 'Microwave Oven' THEN 5
+    WHEN 'Electric Kettle' THEN 8
+END;
+
+CREATE TABLE sales_items (
+    sales_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    invoice_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL CHECK (quantity > 0),
+    unit_price DECIMAL(10,2) NOT NULL,
+
+    CONSTRAINT fk_sales_items_sales
+        FOREIGN KEY (invoice_id)
+        REFERENCES sales(invoice_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_sales_items_product
+        FOREIGN KEY (product_id)
+        REFERENCES product(product_id)
+        ON DELETE RESTRICT
+);
+
+INSERT INTO sales_items (invoice_id, product_id, quantity, unit_price) VALUES
+-- Invoice 1: Ravi Kumar
+(1, 1, 1, 55000.00),   -- Laptop
+(1, 5, 5, 45.00),     -- Notebook
+
+-- Invoice 2: Anita Sharma
+(2, 6, 10, 10.00),    -- Pen
+(2, 4, 3, 180.00),    -- Cooking Oil 1L
+
+-- Invoice 3: Suresh Patel
+(3, 2, 1, 18000.00),  -- Smartphone
+(3, 10, 2, 1499.00), -- Electric Kettle
+
+-- Invoice 4: Neha Verma
+(4, 1, 1, 55000.00),  -- Laptop
+(4, 8, 2, 1299.00),  -- Jeans
+
+-- Invoice 5: Arjun Reddy
+(5, 6, 20, 10.00),   -- Pen
+
+-- Invoice 6: Priya Nair
+(6, 9, 1, 8999.00);  -- Microwave Oven
+
+UPDATE sales s
+SET total_amount = (
+    SELECT SUM(quantity * unit_price)
+    FROM sales_items si
+    WHERE si.invoice_id = s.invoice_id
+);
