@@ -50,7 +50,7 @@ A **desktop-based Smart Inventory Management System** built using **Python, Cust
 
 ## 📂 Project Structure
 
-"""
+```
 Smart_inventory_management_system_using_Ctk
 ├── README.md
 ├── requirements.txt
@@ -105,7 +105,7 @@ Smart_inventory_management_system_using_Ctk
 └── main.py
 
 
-"""
+```
 
 
 ---
